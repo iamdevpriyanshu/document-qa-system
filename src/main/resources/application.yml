@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 26MB
+  datasource:
+    url: jdbc:h2:file:./data/documentqa;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      embedding:
+        options:
+          model: text-embedding-3-small
+      chat:
+        options:
+          model: gpt-4o-mini
+          temperature: 0.2
+
+app:
+  upload-dir: ./uploads
+  rag:
+    top-k: 6
+    min-similarity: 0.0
+    max-context-chars: 12000
+  ingestion:
+    max-chunk-tokens: 380
+  vector-store:
+    persist-file: ./data/vector-store.json
